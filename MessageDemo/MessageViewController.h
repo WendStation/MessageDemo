@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  MessageViewController.h
 //  MessageDemo
 //
 //  Created by wufei on 15/12/10.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface MessageViewController : UIViewController
 
 @end
-

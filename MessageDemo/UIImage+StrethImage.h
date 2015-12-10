@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  UIImage+StrethImage.h
 //  MessageDemo
 //
 //  Created by wufei on 15/12/10.
@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface UIImage (StrethImage)
 
-@property (strong, nonatomic) UIWindow *window;
-
++(instancetype)strethImageWithName:(NSString *)imageName;
 
 @end
-

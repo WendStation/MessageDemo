@@ -14,6 +14,14 @@
 		02132BE91C1914A300BA90D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02132BE81C1914A300BA90D9 /* Images.xcassets */; };
 		02132BEC1C1914A300BA90D9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02132BEA1C1914A300BA90D9 /* LaunchScreen.xib */; };
 		02132BF81C1914A300BA90D9 /* MessageDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02132BF71C1914A300BA90D9 /* MessageDemoTests.m */; };
+		02132C031C1914DB00BA90D9 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02132C021C1914DB00BA90D9 /* MessageViewController.m */; };
+		02132C071C19151500BA90D9 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02132C061C19151500BA90D9 /* MessageModel.m */; };
+		02132C0B1C19159C00BA90D9 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02132C0A1C19159C00BA90D9 /* MessageCell.m */; };
+		02132C0E1C1915C900BA90D9 /* messageCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 02132C0D1C1915C900BA90D9 /* messageCellFrame.m */; };
+		02132C121C19163100BA90D9 /* UIImage+StrethImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 02132C111C19163100BA90D9 /* UIImage+StrethImage.m */; };
+		02132C151C19165200BA90D9 /* NSString+DocumentPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 02132C141C19165200BA90D9 /* NSString+DocumentPath.m */; };
+		23FEA3081C1921D5005B4EC9 /* MessageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23FEA3071C1921D5005B4EC9 /* MessageContentView.m */; };
+		23FEA30B1C1921F8005B4EC9 /* KeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23FEA30A1C1921F8005B4EC9 /* KeyboardView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +48,22 @@
 		02132BF11C1914A300BA90D9 /* MessageDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessageDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02132BF61C1914A300BA90D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02132BF71C1914A300BA90D9 /* MessageDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageDemoTests.m; sourceTree = "<group>"; };
+		02132C011C1914DB00BA90D9 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		02132C021C1914DB00BA90D9 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		02132C051C19151500BA90D9 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
+		02132C061C19151500BA90D9 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
+		02132C091C19159C00BA90D9 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
+		02132C0A1C19159C00BA90D9 /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
+		02132C0C1C1915C900BA90D9 /* messageCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageCellFrame.h; sourceTree = "<group>"; };
+		02132C0D1C1915C900BA90D9 /* messageCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageCellFrame.m; sourceTree = "<group>"; };
+		02132C101C19163100BA90D9 /* UIImage+StrethImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+StrethImage.h"; sourceTree = "<group>"; };
+		02132C111C19163100BA90D9 /* UIImage+StrethImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+StrethImage.m"; sourceTree = "<group>"; };
+		02132C131C19165200BA90D9 /* NSString+DocumentPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DocumentPath.h"; sourceTree = "<group>"; };
+		02132C141C19165200BA90D9 /* NSString+DocumentPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DocumentPath.m"; sourceTree = "<group>"; };
+		23FEA3061C1921D5005B4EC9 /* MessageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageContentView.h; sourceTree = "<group>"; };
+		23FEA3071C1921D5005B4EC9 /* MessageContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageContentView.m; sourceTree = "<group>"; };
+		23FEA3091C1921F8005B4EC9 /* KeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardView.h; sourceTree = "<group>"; };
+		23FEA30A1C1921F8005B4EC9 /* KeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +105,16 @@
 		02132BDA1C1914A300BA90D9 /* MessageDemo */ = {
 			isa = PBXGroup;
 			children = (
+				23FEA3051C192199005B4EC9 /* View */,
+				02132C0F1C1915EE00BA90D9 /* Category */,
+				02132C081C19153900BA90D9 /* cell */,
+				02132C041C1914F700BA90D9 /* model */,
 				02132BDF1C1914A300BA90D9 /* AppDelegate.h */,
 				02132BE01C1914A300BA90D9 /* AppDelegate.m */,
 				02132BE21C1914A300BA90D9 /* ViewController.h */,
 				02132BE31C1914A300BA90D9 /* ViewController.m */,
+				02132C011C1914DB00BA90D9 /* MessageViewController.h */,
+				02132C021C1914DB00BA90D9 /* MessageViewController.m */,
 				02132BE51C1914A300BA90D9 /* Main.storyboard */,
 				02132BE81C1914A300BA90D9 /* Images.xcassets */,
 				02132BEA1C1914A300BA90D9 /* LaunchScreen.xib */,
@@ -117,6 +147,48 @@
 				02132BF61C1914A300BA90D9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		02132C041C1914F700BA90D9 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				02132C051C19151500BA90D9 /* MessageModel.h */,
+				02132C061C19151500BA90D9 /* MessageModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		02132C081C19153900BA90D9 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				02132C091C19159C00BA90D9 /* MessageCell.h */,
+				02132C0A1C19159C00BA90D9 /* MessageCell.m */,
+				02132C0C1C1915C900BA90D9 /* messageCellFrame.h */,
+				02132C0D1C1915C900BA90D9 /* messageCellFrame.m */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
+		02132C0F1C1915EE00BA90D9 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				02132C101C19163100BA90D9 /* UIImage+StrethImage.h */,
+				02132C111C19163100BA90D9 /* UIImage+StrethImage.m */,
+				02132C131C19165200BA90D9 /* NSString+DocumentPath.h */,
+				02132C141C19165200BA90D9 /* NSString+DocumentPath.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		23FEA3051C192199005B4EC9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				23FEA3061C1921D5005B4EC9 /* MessageContentView.h */,
+				23FEA3071C1921D5005B4EC9 /* MessageContentView.m */,
+				23FEA3091C1921F8005B4EC9 /* KeyboardView.h */,
+				23FEA30A1C1921F8005B4EC9 /* KeyboardView.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,8 +292,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				02132BE41C1914A300BA90D9 /* ViewController.m in Sources */,
+				02132C121C19163100BA90D9 /* UIImage+StrethImage.m in Sources */,
+				23FEA3081C1921D5005B4EC9 /* MessageContentView.m in Sources */,
 				02132BE11C1914A300BA90D9 /* AppDelegate.m in Sources */,
+				02132C071C19151500BA90D9 /* MessageModel.m in Sources */,
+				02132C0B1C19159C00BA90D9 /* MessageCell.m in Sources */,
+				23FEA30B1C1921F8005B4EC9 /* KeyboardView.m in Sources */,
+				02132C031C1914DB00BA90D9 /* MessageViewController.m in Sources */,
 				02132BDE1C1914A300BA90D9 /* main.m in Sources */,
+				02132C151C19165200BA90D9 /* NSString+DocumentPath.m in Sources */,
+				02132C0E1C1915C900BA90D9 /* messageCellFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +428,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MessageDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -358,6 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MessageDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -416,6 +498,7 @@
 				02132BFD1C1914A300BA90D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		02132BFE1C1914A300BA90D9 /* Build configuration list for PBXNativeTarget "MessageDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +507,7 @@
 				02132C001C1914A300BA90D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
