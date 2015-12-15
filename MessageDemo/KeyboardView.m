@@ -63,8 +63,6 @@
 {
     if (_voiceBtn==nil) {
         _voiceBtn=[self buttonWithState:@"chat_bottom_voice_nor" hightLight:@"chat_bottom_voice_press" action:@selector(voiceButtonPress:)];
-        
-        UIImage* image= [UIImage imageNamed:@"chat_bottom_voice_nor"];
         [_voiceBtn setFrame:CGRectMake(0, 0, KeyBoard_ButtonHeight, KeyBoard_ButtonHeight)];
         [_voiceBtn setCenter:CGPointMake(VoiceButton_X, HEIGHT*0.5)];
     }
@@ -241,10 +239,10 @@
     self.textViewContentHeight=changeInHeight;
     CGRect prevFrame = self.textView.frame;
     
-    int numLines = MAX([self numberOfLinesOfText],
+    NSUInteger numLines = MAX([self numberOfLinesOfText],
                        [self.textView.text numberOfLines]);
     
-    NSLog(@"number line == %d",numLines);
+    NSLog(@"number line == %lu",numLines);
     
     self.textView.frame = CGRectMake(prevFrame.origin.x,
                                      prevFrame.origin.y,
