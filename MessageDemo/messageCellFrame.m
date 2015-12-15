@@ -62,7 +62,7 @@
         self.indicatorRect=CGRectMake(contentX-ErrorImage_Width-BLANKSPACE, CGRectGetMinY(self.messageViewRect)+CGRectGetHeight(self.messageViewRect)/2-ErrorImage_Width/2, ErrorImage_Width, ErrorImage_Height);
         //设置错误图片的位置
         self.errorImageRect=CGRectMake(contentX-ErrorImage_Width-BLANKSPACE, CGRectGetMinY(self.messageViewRect)+CGRectGetHeight(self.messageViewRect)/2-ErrorImage_Width/2, ErrorImage_Width, ErrorImage_Height);
-        
+        self.nameRect=CGRectZero;
     }
     else
     {
