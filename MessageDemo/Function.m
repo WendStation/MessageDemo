@@ -17,7 +17,6 @@
     NSDate* today=[NSDate date];
     [formater setDateFormat:@"dd"];
     NSString* dateOfDay=[formater stringFromDate:date];
-    
     NSString* todayOfDay=[formater stringFromDate:today];
     //不是今天
     if (![todayOfDay isEqualToString:dateOfDay]) {
@@ -46,7 +45,6 @@
     NSDateFormatter* formater=[[NSDateFormatter alloc]init];
     [formater setDateFormat:@"dd"];
     NSString* oldDateOfDay=[formater stringFromDate:oldDate];
-    
     NSString* newDateOfDay=[formater stringFromDate:newDate];
     //不是今天
     if (![oldDateOfDay isEqualToString:newDateOfDay]) {

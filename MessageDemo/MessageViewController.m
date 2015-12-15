@@ -61,6 +61,8 @@ static NSString *const cellIdentifier=@"message";
  */
 -(void)initWithData
 {
+    //这句话主要是在算第一个的时候能显示时间
+    self.oldTime=nil;
     
     NSString *path=[[NSBundle mainBundle] pathForResource:@"messages" ofType:@"plist"];
     NSArray *data=[NSArray arrayWithContentsOfFile:path];
@@ -69,9 +71,11 @@ static NSString *const cellIdentifier=@"message";
         messageCellFrame *cellFrame=[[messageCellFrame alloc]init];
         MessageModel* model=[MessageModel modelWithDict:dict];
         NSString* time=[Function compareTimeWithOldTime:self.oldTime NewTime:model.message[@"time"]];
+        //必须要有
         cellFrame.oldTime=self.oldTime;
         if (time) {
             cellFrame.isTimeShow=YES;
+            cellFrame.CurrentTimeStr=time;
         }else
         {
             cellFrame.isTimeShow=NO;

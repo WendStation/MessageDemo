@@ -22,10 +22,14 @@
     if (self.isTimeShow) {
         CGSize size=CGSizeMake(LabelMaxWidth, LabelMaxHeight);
         //包裹
-        NSString* time=[Function compareTimeWithOldTime:self.oldTime NewTime:model.message[@"time"]];
-        if (time) {
-            CGSize labelsize=[time sizeWithFont:[UIFont systemFontOfSize:10.0f] constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
-            self.timeRect=CGRectMake([[UIScreen mainScreen]bounds].size.width/2.0-(labelsize.width+10)/2, TimeLabelToTop_Y, labelsize.width+10, labelsize.height+4);
+//        NSString* time=[Function compareTimeWithOldTime:self.oldTime NewTime:model.message[@"time"]];
+        if (self.CurrentTimeStr) {
+//            CGSize labelRect=[time sizeWithFont:[UIFont systemFontOfSize:10.0f] constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
+            
+            //这个函数的具体用法？？？？
+            CGRect labelRect=[self.CurrentTimeStr boundingRectWithSize:size options:NSStringDrawingTruncatesLastVisibleLine attributes:nil context:nil];
+            
+            self.timeRect=CGRectMake([[UIScreen mainScreen]bounds].size.width/2.0-(labelRect.size.width+10)/2, TimeLabelToTop_Y, labelRect.size.width, labelRect.size.height+4);
         }
         
     }
@@ -66,8 +70,9 @@
         //包裹
         CGSize size=CGSizeMake(LabelMaxWidth, LabelMaxHeight);
         NSString* name=model.name;
-        CGSize labelsize=[name sizeWithFont:[UIFont systemFontOfSize:NameLabel_FontSize] constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
-        self.nameRect=CGRectMake(contentX, CGRectGetMinY(self.iconRect), labelsize.width, labelsize.height);
+//        CGSize labelsize=[name sizeWithFont:[UIFont systemFontOfSize:NameLabel_FontSize] constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
+        CGRect labelRect=[name boundingRectWithSize:size options:NSStringDrawingTruncatesLastVisibleLine attributes:nil context:nil];
+        self.nameRect=CGRectMake(contentX, CGRectGetMinY(self.iconRect), labelRect.size.width+2, labelRect.size.height);
         self.messageViewRect=CGRectMake(contentX-5, CGRectGetMaxY(self.nameRect)+5,contentSize.width+2*MessageContent_LabelToBackground+2+8, contentSize.height+2*MessageContent_LabelToBackground+2);
     }
     self.cellHeight = MAX(CGRectGetMaxY(self.messageViewRect),CGRectGetMaxY(self.iconRect))+CellMaxYToContentMaxY;

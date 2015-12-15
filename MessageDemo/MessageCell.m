@@ -53,6 +53,7 @@
     [super prepareForReuse];
     self.nameLabel.text=nil;
     self.timeLabel.frame=CGRectZero;
+    self.timeLabel.text=nil;
 //    if (![self.cellFrame.model.from isEqualToString:userID]) {
 //        self.errorImageView.image=nil;
 //    }
@@ -136,10 +137,11 @@
 {
     _cellFrame=cellFrame;
     MessageModel *model=cellFrame.model;
-    NSString* time=[Function compareTimeWithOldTime:self.oldTime NewTime:model.message[@"time"]];
-    if (time) {
-        self.timeLabel.text=time;
-    }
+//    NSString* time=[Function compareTimeWithOldTime:self.oldTime NewTime:model.message[@"time"]];
+    
+    self.timeLabel.text=self.cellFrame.CurrentTimeStr;
+    NSLog(@"!!!!!!!!!!!!!!!!!!   time=%@",self.timeLabel.text);
+   
     self.timeLabel.frame=cellFrame.timeRect;
     NSLog(@"%f",self.timeLabel.frame.size.width);
     self.icon.frame=cellFrame.iconRect;
@@ -186,7 +188,7 @@
     NSError *error = NULL;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
     
-    self.matches = [detector matchesInString:self.messageView.contentLabel.text options:nil range:NSMakeRange(0, self.messageView.contentLabel.text.length)];
+    self.matches = [detector matchesInString:self.messageView.contentLabel.text options:0 range:NSMakeRange(0, self.messageView.contentLabel.text.length)];
     
     [self highlightLinksWithIndex:NSNotFound];
     //菊花

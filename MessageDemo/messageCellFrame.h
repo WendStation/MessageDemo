@@ -25,4 +25,5 @@
 @property(nonatomic,assign)BOOL isErrorImageShow;
 
 @property(nonatomic,strong)NSString* oldTime;
+@property(nonatomic,strong)NSString* CurrentTimeStr;
 @end
