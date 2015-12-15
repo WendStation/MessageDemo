@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[MessageViewController tableView:cellForRowAtIndexPath:]:MessageViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.oldTime.intValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MessageViewController KeyboardVIew:sendMessage:currentMessage:]:MessageViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.previousTextViewContentHeight">
+            </PersistentString>
+            <PersistentString
+               value = "textView.contentSize.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

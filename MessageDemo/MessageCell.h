@@ -8,16 +8,24 @@
 
 #import <UIKit/UIKit.h>
 #import "messageCellFrame.h"
-@class MessageCell
+@class MessageCell;
 
 @protocol MessageCellDelegate <NSObject>
 
 -(void)MessageCell:(MessageCell *)messageCell tapContent:(NSString *)content;
+
+-(void)hideKeyboard;
 
 @end
 
 @interface MessageCell : UITableViewCell
 @property(nonatomic,strong)messageCellFrame* cellFrame;
 @property(nonatomic,assign)id<MessageCellDelegate> delegate;
+@property(nonatomic,strong)UIActivityIndicatorView* indicatorView;
+@property(nonatomic,strong)UIImageView* errorImageView;
+@property(nonatomic,assign)BOOL isTimeShow;
+@property(nonatomic,strong)NSString* oldTime;
+
+
 
 @end

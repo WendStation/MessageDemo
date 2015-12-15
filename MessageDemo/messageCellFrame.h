@@ -7,7 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MessageModel.h"
+#import <UIKit/UIKit.h>
 
 @interface messageCellFrame : NSObject
 
+@property(nonatomic,assign)CGRect iconRect;
+@property(nonatomic,assign)CGRect messageViewRect;
+@property(nonatomic,strong)MessageModel* model;
+@property(nonatomic,assign)CGFloat cellHeight;
+@property(nonatomic,assign)CGRect nameRect;
+@property(nonatomic,assign)CGRect timeRect;
+@property(nonatomic,assign)CGRect indicatorRect;
+@property(nonatomic,assign)CGRect errorImageRect;
+@property(nonatomic,assign)BOOL isTimeShow;
+@property(nonatomic,assign)BOOL isIndeicatorShow;
+@property(nonatomic,assign)BOOL isErrorImageShow;
+
+@property(nonatomic,strong)NSString* oldTime;
 @end

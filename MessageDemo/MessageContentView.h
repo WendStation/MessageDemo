@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class PPLabel;
 
 @class MessageContentView,MessageModel;
 
@@ -20,11 +20,9 @@
 
 
 @interface MessageContentView : UIView
-@property(nonatomic,strong)NSString* userId;
 @property(nonatomic,strong)UIImageView* backImageView;
-@property(nonatomic,strong)UILabel* contentLabel;
-@property(nonatomic,strong)UILabel* timeLabel;
-@property(nonatomic,strong)UILabel* userNameLabel;
+@property(nonatomic,strong)PPLabel* contentLabel;
+
 @property(nonatomic,strong)MessageModel* model;
 @property(nonatomic,assign)id<MessageContentViewDelegate>delegate;
 

@@ -14,4 +14,9 @@
 {
     return [[NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:fileName];
 }
+- (NSUInteger)numberOfLines
+{
+    return [self componentsSeparatedByString:@"\n"].count;
+}
+
 @end

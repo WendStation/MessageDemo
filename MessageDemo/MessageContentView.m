@@ -9,10 +9,11 @@
 #import "MessageContentView.h"
 #import "MessageContentView.h"
 #import "MessageModel.h"
+#import "Header.h"
+#import "PPLabel.h"
 
-#define ContentStartMargin 25
-#define WIDTH self.frame.size.width
-#define HEIGHT self.frame.size.height
+
+
 
 @implementation MessageContentView
 
@@ -30,10 +31,9 @@
 {
     [self addSubview:self.backImageView];
     [self addSubview:self.contentLabel];
-    
+//    self.backgroundColor=[UIColor redColor];
     [self addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longTap:)]];
-    [self addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapPress:)]];
-    
+//    [self addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapPress:)]];
 }
 -(void)setFrame:(CGRect)frame
 {
@@ -42,15 +42,15 @@
     self.backImageView.frame=self.bounds;
     CGFloat contentLabelX=0;
     //判断是否是自己发送的，从而判断位置
-    if ([self.model.from isEqualToString:self.userId]) {
-        contentLabelX=ContentStartMargin*0.8;
+    if (![self.model.from isEqualToString:userID]) {
+        contentLabelX=MessageContent_LabelToBackground+5;
     }
     else
     {
-        contentLabelX=ContentStartMargin*0.5;
+        contentLabelX=MessageContent_LabelToBackground;
     }
     //这句话什么作用
-    self.contentLabel.frame=CGRectMake(contentLabelX, -3, WIDTH-ContentStartMargin-5, HEIGHT);
+    self.contentLabel.frame=CGRectMake(contentLabelX, MessageContent_LabelToBackground, WIDTH-MessageContent_LabelToBackground*2-5, HEIGHT-MessageContent_LabelToBackground*2);
     
     //这里设置时间label
     
@@ -71,30 +71,16 @@
 -(UILabel *)contentLabel
 {
     if (_contentLabel==nil) {
-        _contentLabel=[[UILabel alloc]init];
+        _contentLabel=[[PPLabel alloc]init];
         _contentLabel.numberOfLines=0;
         _contentLabel.textAlignment=NSTextAlignmentLeft;
-        _contentLabel.font=[UIFont systemFontOfSize:13.0f];
+        _contentLabel.font=[UIFont systemFontOfSize:ContentLabel_FontSize];
+        _contentLabel.textColor=[UIColor colorWithRed:17.0/255 green:17.0/255 blue:17.0/255 alpha:1.0];
+
     }
     return _contentLabel;
 }
--(UILabel *)timeLabel
-{
-    if (_timeLabel==nil) {
-        _timeLabel=[[UILabel alloc]init];
-        _timeLabel.textAlignment=NSTextAlignmentCenter;
-    }
-    return _timeLabel;
-}
--(UILabel *)userNameLabel
-{
-    if (_userNameLabel==nil) {
-        _userNameLabel=[[UILabel alloc]init];
-        _userNameLabel.textAlignment=NSTextAlignmentLeft;
-        
-    }
-    return _userNameLabel;
-}
+
 #pragma mark - 手势的实现函数
 -(void)longTap:(UILongPressGestureRecognizer*)longTap
 {
@@ -107,6 +93,7 @@
     if ([self.delegate respondsToSelector:@selector(messageContentViewTapPress:content:)]) {
         [self.delegate messageContentViewTapPress:self content:self.contentLabel.text];
     }
+    
 }
 
 @end
