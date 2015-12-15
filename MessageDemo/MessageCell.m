@@ -52,6 +52,7 @@
 {
     [super prepareForReuse];
     self.nameLabel.text=nil;
+    
     self.timeLabel.frame=CGRectZero;
     self.timeLabel.text=nil;
 //    if (![self.cellFrame.model.from isEqualToString:userID]) {
@@ -154,6 +155,8 @@
     }
     else
     {
+        //解决namelabel控件复用出现的问题
+        self.nameLabel.frame=cellFrame.nameRect;
         //设置菊花的frame
         self.indicatorView.frame=cellFrame.indicatorRect;
         if (self.cellFrame.isIndeicatorShow) {
