@@ -10,10 +10,7 @@
 
 @implementation NSString (DocumentPath)
 
-+(NSString *)documentPathWithFileName:(NSString *)fileName
-{
-    return [[NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:fileName];
-}
+
 - (NSUInteger)numberOfLines
 {
     return [self componentsSeparatedByString:@"\n"].count;

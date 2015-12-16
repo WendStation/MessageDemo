@@ -14,17 +14,22 @@
 #import "UIImage+StrethImage.h"
 #import "PPLabel.h"
 
+#define NameLabel_FontSize 12.0
+#define TimeLabel_FontSize 10.0
+#define LINESPACE 2
+
 @interface MessageCell()<MessageContentViewDelegate,PPLabelDelegate>
 @property (nonatomic,strong) UIImageView *icon;
 @property (nonatomic,strong) MessageContentView *messageView;
 @property (nonatomic,strong) MessageContentView *currentMessageView;
 @property (nonatomic,strong) NSString *contentStr;
-@property(nonatomic,strong)UILabel* nameLabel;
-@property(nonatomic,strong)UILabel* timeLabel;
+@property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
 
 @property(nonatomic, strong) NSArray* matches;
 
 @end
+
 @implementation MessageCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -39,251 +44,210 @@
         [self.contentView addSubview:self.indicatorView];
         //发送错误图片
         [self.contentView addSubview:self.errorImageView];
-        
         self.messageView.contentLabel.delegate = self;
-        
-
-        
-
     }
     return self;
 }
--(void)prepareForReuse
+- (void)prepareForReuse
 {
     [super prepareForReuse];
-    self.nameLabel.text=nil;
-    
-    self.timeLabel.frame=CGRectZero;
-    self.timeLabel.text=nil;
-//    if (![self.cellFrame.model.from isEqualToString:userID]) {
-//        self.errorImageView.image=nil;
-//    }
+    self.nameLabel.text = nil;
+    self.timeLabel.frame = CGRectZero;
+    self.timeLabel.text = nil;
+}
 
-//    self.indicatorView=nil;
-//    self.errorImageView=nil;
-}
--(void)layoutSubviews
-{
-    
-}
 #pragma mark - 懒加载
--(UILabel *)timeLabel
+- (UILabel *)timeLabel
 {
-    if (_timeLabel==nil) {
-        _timeLabel=[[UILabel alloc]init];
-        _timeLabel.textColor=[UIColor whiteColor];
-        _timeLabel.font=[UIFont systemFontOfSize:10.f];
-        _timeLabel.backgroundColor=[UIColor colorWithRed:17/255.0 green:17/255.0 blue:17/255.0 alpha:0.2];
-        _timeLabel.clipsToBounds=YES;
-        _timeLabel.layer.cornerRadius=3.0f;
-        _timeLabel.textAlignment=NSTextAlignmentCenter;
-//        [_timeLabel sizeToFit];
-        _timeLabel.lineBreakMode=NSLineBreakByWordWrapping;
-     
-
+    if (_timeLabel == nil) {
+        _timeLabel = [[UILabel alloc] init];
+        _timeLabel.textColor = [UIColor whiteColor];
+        _timeLabel.font = [UIFont systemFontOfSize:TimeLabel_FontSize];
+        _timeLabel.backgroundColor = [UIColor colorWithRed:17/255.0 green:17/255.0 blue:17/255.0 alpha:0.2];
+        _timeLabel.clipsToBounds = YES;
+        _timeLabel.layer.cornerRadius = 3.0f;
+        _timeLabel.textAlignment = NSTextAlignmentCenter;
+        _timeLabel.lineBreakMode = NSLineBreakByWordWrapping;
     }
     return _timeLabel;
 }
--(UIImageView *)icon
+- (UIImageView *)icon
 {
-    if (_icon==nil) {
-        _icon=[[UIImageView alloc]init];
-        
+    if (_icon == nil) {
+        _icon = [[UIImageView alloc] init];
     }
     return _icon;
 }
--(UILabel *)nameLabel
+- (UILabel *)nameLabel
 {
     if (_nameLabel==nil) {
-        _nameLabel=[[UILabel alloc]init];
+        _nameLabel = [[UILabel alloc] init];
         _nameLabel.font=[UIFont systemFontOfSize:NameLabel_FontSize];
-        _nameLabel.textColor=[UIColor colorWithRed:138.0f/255 green:138.0f/255 blue:138.0f/255 alpha:1.0];
+        _nameLabel.textColor = [UIColor colorWithRed:138.0f/255 green:138.0f/255 blue:138.0f/255 alpha:1.0];
     }
     return _nameLabel;
 }
--(MessageContentView *)messageView
+- (MessageContentView *)messageView
 {
     if (_messageView==nil) {
-        _messageView=[[MessageContentView alloc]initWithFrame:CGRectZero];
+        _messageView = [[MessageContentView alloc] initWithFrame:CGRectZero];
         _messageView.delegate=self;
     }
     return _messageView;
 }
--(UIActivityIndicatorView *)indicatorView
+- (UIActivityIndicatorView *)indicatorView
 {
     if (_indicatorView==nil) {
-        _indicatorView=[[UIActivityIndicatorView alloc]init];
-        _indicatorView.activityIndicatorViewStyle=UIActivityIndicatorViewStyleGray;
-        
+        _indicatorView = [[UIActivityIndicatorView alloc] init];
+        _indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     }
     return _indicatorView;
 }
--(UIImageView *)errorImageView
+- (UIImageView *)errorImageView
 {
     if (_errorImageView==nil) {
-        _errorImageView=[[UIImageView alloc]init];
+        _errorImageView = [[UIImageView alloc] init];
         
     }
     return _errorImageView;
 }
--(NSString *)oldTime
+- (NSString *)oldTime
 {
     if (_oldTime==nil) {
-        _oldTime=[NSString stringWithFormat:@"%@",self.cellFrame.oldTime];
+        _oldTime = [NSString stringWithFormat:@"%@",self.cellFrame.oldTime];
     }
     return _oldTime;
 }
 
--(void)setCellFrame:(messageCellFrame *)cellFrame
+#pragma mark - 设置控件的位置
+- (void)setCellFrame:(MessageCellFrame *)cellFrame
 {
-    _cellFrame=cellFrame;
-    MessageModel *model=cellFrame.model;
-//    NSString* time=[Function compareTimeWithOldTime:self.oldTime NewTime:model.message[@"time"]];
-    
-    self.timeLabel.text=self.cellFrame.CurrentTimeStr;
-    NSLog(@"!!!!!!!!!!!!!!!!!!   time=%@",self.timeLabel.text);
-   
-    self.timeLabel.frame=cellFrame.timeRect;
+    _cellFrame = cellFrame;
+    MessageModel *model = cellFrame.model;
+    self.timeLabel.text = self.cellFrame.CurrentTimeStr;
+    self.timeLabel.frame = cellFrame.timeRect;
     NSLog(@"%f",self.timeLabel.frame.size.width);
-    self.icon.frame=cellFrame.iconRect;
+    self.icon.frame = cellFrame.iconRect;
     [self.icon sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"icon02.jpg"]];
     if (![model.from isEqualToString:userID]) {
-        self.nameLabel.text=model.name;
-        self.nameLabel.frame=cellFrame.nameRect;
-        self.errorImageView.image=nil;
-        
+        self.nameLabel.text = model.name;
+        self.nameLabel.frame = cellFrame.nameRect;
+        self.errorImageView.image = nil;
     }
     else
     {
         //解决namelabel控件复用出现的问题
-        self.nameLabel.frame=cellFrame.nameRect;
+        self.nameLabel.frame = cellFrame.nameRect;
         //设置菊花的frame
-        self.indicatorView.frame=cellFrame.indicatorRect;
+        self.indicatorView.frame = cellFrame.indicatorRect;
         if (self.cellFrame.isIndeicatorShow) {
             [self.indicatorView startAnimating];
         }
         else
             [self.indicatorView stopAnimating];
-        
-        self.errorImageView.image=[UIImage imageNamed:@"tanhao"];
+        self.errorImageView.image = [UIImage imageNamed:@"tanhao"];
         //设置错误图片的frame
-        self.errorImageView.frame=cellFrame.errorImageRect;
+        self.errorImageView.frame = cellFrame.errorImageRect;
         if (self.cellFrame.isErrorImageShow) {
-            self.errorImageView.hidden=NO;
+            self.errorImageView.hidden = NO;
         }
         else
-            self.errorImageView.hidden=YES;
+            self.errorImageView.hidden = YES;
     }
-    
-    self.messageView.model=model;
-    self.messageView.frame=cellFrame.messageViewRect;
-
-
+    self.messageView.model = model;
+    self.messageView.frame = cellFrame.messageViewRect;
     [self setBackGroundImageViewImage:self.messageView from:@"chatfrom_bg_normal" to:@"chatto_bg_normal"];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:LINESPACE];//调整行间距
-//    NSMutableAttributedString* content=[[NSMutableAttributedString alloc]initWithString:model.message[@"content"]];
-    //设置行间距
-//    [content addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, content.length)];
+    [paragraphStyle setLineSpacing:LINESPACE];
     self.messageView.contentLabel.text=model.message[@"content"];
-    
     NSError *error = NULL;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
-    
     self.matches = [detector matchesInString:self.messageView.contentLabel.text options:0 range:NSMakeRange(0, self.messageView.contentLabel.text.length)];
-    
     [self highlightLinksWithIndex:NSNotFound];
     //菊花
     
 }
 
 
--(void)setBackGroundImageViewImage:(MessageContentView *)messageView from:(NSString *)from to:(NSString *)to
+- (void)setBackGroundImageViewImage:(MessageContentView *)messageView from:(NSString *)from to:(NSString *)to
 {
-    UIImage *normal=nil ;
+    UIImage *normal = nil ;
     if(![messageView.model.from isEqualToString:userID]){
-        
-        normal=[UIImage strethImageWithName:from];
- 
+        normal = [UIImage strethImageWithName:from];
     }else{
-        
-        normal=[UIImage strethImageWithName:to];
+        normal = [UIImage strethImageWithName:to];
     }
-    messageView.backImageView.image=normal;
+    messageView.backImageView.image = normal;
 }
 - (void)awakeFromNib {
     // Initialization code
 }
--(void)messageContentViewLongPress:(MessageContentView *)messageContentView content:(NSString *)content
+#pragma mark - 手势
+- (void)messageContentViewLongPress:(MessageContentView *)messageContentView content:(NSString *)content
 {
     [self becomeFirstResponder];
-    UIMenuController *menu=[UIMenuController sharedMenuController];
+    UIMenuController *menu = [UIMenuController sharedMenuController];
     [menu setTargetRect:messageContentView.backImageView.frame inView:messageContentView];
     [menu setMenuVisible:YES animated:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuShow:) name:UIMenuControllerWillShowMenuNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuHide:) name:UIMenuControllerWillHideMenuNotification object:nil];
-    self.contentStr=content;
-    self.currentMessageView=messageContentView;
+    self.contentStr = content;
+    self.currentMessageView = messageContentView;
 }
--(void)messageContentViewTapPress:(MessageContentView *)messageContentView content:(NSString *)content
+- (void)messageContentViewTapPress:(MessageContentView *)messageContentView content:(NSString *)content
 {
-    if([self.delegate respondsToSelector:@selector(MessageCell:tapContent:)]){
-        [self.delegate MessageCell:self tapContent:content];
+    if([self.delegate respondsToSelector:@selector(messageCell:tapContent:)]){
+        [self.delegate messageCell:self tapContent:content];
     }
 }
--(void)menuShow:(UIMenuController *)menu
+- (void)menuShow:(UIMenuController *)menu
 {
     [self setBackGroundImageViewImage:self.currentMessageView from:@"chatfrom_bg_normal" to:@"chatto_bg_normal"];
 }
--(void)menuHide:(UIMenuController *)menu
+- (void)menuHide:(UIMenuController *)menu
 {
     [self setBackGroundImageViewImage:self.currentMessageView from:@"chatfrom_bg_normal@2x" to:@"chatto_bg_normal@2x"];
     self.currentMessageView=nil;
     [self resignFirstResponder];
 }
--(BOOL)canPerformAction:(SEL)action withSender:(id)sender
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-    if(action ==@selector(copy:)){
+    if(action == @selector(copy:)){
         
         return YES;
     }
     return [super canPerformAction:action withSender:sender];
 }
 
--(void)copy:(id)sender
+- (void)copy:(id)sender
 {
-    [[UIPasteboard generalPasteboard]setString:self.contentStr];
+    [[UIPasteboard generalPasteboard] setString:self.contentStr];
 }
--(BOOL)canBecomeFirstResponder
+- (BOOL)canBecomeFirstResponder
 {
     return YES;
 }
 
 #pragma mark -
 
--(BOOL)label:(PPLabel *)label didBeginTouch:(UITouch *)touch onCharacterAtIndex:(CFIndex)charIndex {
+- (BOOL)label:(PPLabel *)label didBeginTouch:(UITouch *)touch onCharacterAtIndex:(CFIndex)charIndex {
+    [self highlightLinksWithIndex:charIndex];
+    return YES;
+}
+
+- (BOOL)label:(PPLabel *)label didMoveTouch:(UITouch *)touch onCharacterAtIndex:(CFIndex)charIndex {
     
     [self highlightLinksWithIndex:charIndex];
     return YES;
 }
 
--(BOOL)label:(PPLabel *)label didMoveTouch:(UITouch *)touch onCharacterAtIndex:(CFIndex)charIndex {
-    
-    [self highlightLinksWithIndex:charIndex];
-    return YES;
-}
-
--(BOOL)label:(PPLabel *)label didEndTouch:(UITouch *)touch onCharacterAtIndex:(CFIndex)charIndex {
+- (BOOL)label:(PPLabel *)label didEndTouch:(UITouch *)touch onCharacterAtIndex:(CFIndex)charIndex {
     
     [self highlightLinksWithIndex:NSNotFound];
-    
     for (NSTextCheckingResult *match in self.matches) {
-        
         if ([match resultType] == NSTextCheckingTypeLink) {
-            
             NSRange matchRange = [match range];
-            
             if ([self isIndex:charIndex inRange:matchRange]) {
                 if ([self.delegate respondsToSelector:@selector(hideKeyboard)]) {
                     [self.delegate hideKeyboard];
@@ -296,10 +260,9 @@
     return YES;
     
 }
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    UITouch* touch= [touches anyObject];
-    
+    UITouch *touch = [touches anyObject];
     if ([touch.view isKindOfClass:[UILabel class]]) {
         return;
     }
@@ -310,13 +273,11 @@
 
 - (BOOL)label:(PPLabel *)label didCancelTouch:(UITouch *)touch
 {
-    
     [self highlightLinksWithIndex:NSNotFound];
     return YES;
 }
 
 #pragma mark -
-
 - (BOOL)isIndex:(CFIndex)index inRange:(NSRange)range {
     return index > range.location && index < range.location+range.length;
 }
@@ -324,24 +285,18 @@
 - (void)highlightLinksWithIndex:(CFIndex)index {
     
     NSMutableAttributedString* attributedString = [self.messageView.contentLabel.attributedText mutableCopy];
-    
     for (NSTextCheckingResult *match in self.matches) {
-        
         if ([match resultType] == NSTextCheckingTypeLink) {
-            
             NSRange matchRange = [match range];
-            
             if ([self isIndex:index inRange:matchRange]) {
                 [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:matchRange];
             }
             else {
                 [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:matchRange];
             }
-            
             [attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:matchRange];
         }
     }
-    
     self.messageView.contentLabel.attributedText = attributedString;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

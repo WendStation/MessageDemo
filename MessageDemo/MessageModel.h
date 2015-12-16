@@ -10,15 +10,15 @@
 
 @interface MessageModel : NSObject
 
-@property(nonatomic,strong)NSString* messageId;
-@property(nonatomic,strong)NSString* from;
-@property(nonatomic,strong)NSString* groupId;
-@property(nonatomic,strong)NSString* to;
-@property(nonatomic,strong)NSDictionary* message;
-@property(nonatomic,strong)NSString* name;
-@property(nonatomic,strong)NSString* avatar;//url image
-@property(nonatomic,strong)NSString* creationTime;
-@property(nonatomic,strong)NSString *time;
+@property (nonatomic,strong) NSString *messageId;
+@property (nonatomic,strong) NSString *from;
+@property (nonatomic,strong) NSString *groupId;
+@property (nonatomic,strong) NSString *to;
+@property (nonatomic,strong) NSDictionary *message;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *avatar;//url image
+@property (nonatomic,strong) NSString *creationTime;
+
 
 +(instancetype)modelWithDict:(NSDictionary *)dict;
 

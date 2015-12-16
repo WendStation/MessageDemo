@@ -10,6 +10,6 @@
 
 @interface NSString (DocumentPath)
 
-+(NSString *)documentPathWithFileName:(NSString *)fileName;
+
 - (NSUInteger)numberOfLines;
 @end

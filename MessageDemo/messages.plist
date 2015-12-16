@@ -26,8 +26,6 @@
 		<string>0</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>1111111111</string>
 	</dict>
 	<dict>
 		<key>messageId</key>
@@ -53,8 +51,6 @@
 		<string>张三</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>2222222222</string>
 	</dict>
 	<dict>
 		<key>messageId</key>
@@ -80,8 +76,6 @@
 		<string>张三</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>3333333333</string>
 	</dict>
 	<dict>
 		<key>messageId</key>
@@ -107,8 +101,6 @@
 		<string>客服-张三</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>4444444444</string>
 	</dict>
 	<dict>
 		<key>messageId</key>
@@ -134,8 +126,6 @@
 		<string>张三</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>5555555555</string>
 	</dict>
 	<dict>
 		<key>messageId</key>
@@ -161,8 +151,6 @@
 		<string>张三</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>5555555555</string>
 	</dict>
 	<dict>
 		<key>messageId</key>
@@ -188,8 +176,6 @@
 		<string>张三</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>5555555555</string>
 	</dict>
 	<dict>
 		<key>messageId</key>
@@ -215,8 +201,6 @@
 		<string>张三</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>5555555555</string>
 	</dict>
 	<dict>
 		<key>messageId</key>
@@ -242,8 +226,6 @@
 		<string>张三</string>
 		<key>avatar</key>
 		<string>http://img.name2012.com/uploads/allimg/2015-06/30-023131_451.jpg</string>
-		<key>time</key>
-		<string>1450197168</string>
 	</dict>
 </array>
 </plist>
