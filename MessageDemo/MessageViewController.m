@@ -14,37 +14,36 @@
 #import "Header.h"
 #import "MJRefresh/MJRefresh.h"
 #import "Function.h"
-//#define WIDTH self.view.frame.size.width
-//#define HEIGHT self.view.frame.size.height
+
+#define KeyBoardHeight 40
+
 @interface MessageViewController ()<UITableViewDelegate,UITableViewDataSource,KeyboardViewDelegate,MessageCellDelegate,UITextViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) KeyboardView *keyBordView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
-@property(nonatomic,strong)NSMutableArray* newDataArray;
+@property (nonatomic,strong) NSMutableArray *newDataArray;
 @property (nonatomic,assign) BOOL recording;
 @property (nonatomic,strong) NSString *fileName;
-@property(nonatomic,strong)NSString* oldTime;
-
-@property(nonatomic,assign)CGFloat previousTextViewContentHeight;
-@property(nonatomic,assign)CGFloat normalTextViewContentHeight;
-
-@property(nonatomic,strong)NSString* content;
+@property (nonatomic,strong) NSString *oldTime;
+@property (nonatomic,assign) CGFloat previousTextViewContentHeight;
+@property (nonatomic,assign) CGFloat normalTextViewContentHeight;
+@property (nonatomic,strong) NSString *content;
 
 @end
-static NSString *const cellIdentifier=@"message";
+
+static NSString *const cellIdentifier = @"message";
 
 @implementation MessageViewController
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+    [super viewWillAppear: animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.keyBordView];
@@ -52,38 +51,37 @@ static NSString *const cellIdentifier=@"message";
     [self.tableView registerClass:[MessageCell class] forCellReuseIdentifier:cellIdentifier];
     self.automaticallyAdjustsScrollViewInsets=NO;
     [self initWithData];
-    self.dataArray=self.newDataArray;
-    [self tableViewScrollCurrentIndexPath:self.dataArray.count animated:YES];
-    
+    self.dataArray = self.newDataArray;
+    [self tableViewScrollCurrentIndexPath: self.dataArray.count animated:YES];
 }
+
 /**
  *  初始化新数据，在这里是上拉刷新时候，产生的新的数据，改这里产生数据源
  */
--(void)initWithData
+- (void)initWithData
 {
     //这句话主要是在算第一个的时候能显示时间
-    self.oldTime=nil;
+    self.oldTime = nil;
     
-    NSString *path=[[NSBundle mainBundle] pathForResource:@"messages" ofType:@"plist"];
-    NSArray *data=[NSArray arrayWithContentsOfFile:path];
-    self.newDataArray=[NSMutableArray arrayWithCapacity:data.count];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"messages" ofType:@"plist"];
+    NSArray *data = [NSArray arrayWithContentsOfFile:path];
+    self.newDataArray = [NSMutableArray arrayWithCapacity:data.count];
     for(NSDictionary *dict in data){
-        messageCellFrame *cellFrame=[[messageCellFrame alloc]init];
-        MessageModel* model=[MessageModel modelWithDict:dict];
-        NSString* time=[Function compareTimeWithOldTime:self.oldTime NewTime:model.message[@"time"]];
+        MessageCellFrame *cellFrame = [[MessageCellFrame alloc]init];
+        MessageModel *model = [MessageModel modelWithDict:dict];
+        NSString *time = [Function compareTimeWithOldTime:self.oldTime NewTime:model.message[@"time"]];
         //必须要有
-        cellFrame.oldTime=self.oldTime;
+        cellFrame.oldTime = self.oldTime;
         if (time) {
-            cellFrame.isTimeShow=YES;
-            cellFrame.CurrentTimeStr=time;
+            cellFrame.isTimeShow = YES;
+            cellFrame.CurrentTimeStr = time;
         }else
         {
-            cellFrame.isTimeShow=NO;
+            cellFrame.isTimeShow = NO;
         }
-        self.oldTime=model.message[@"time"];
-         cellFrame.model=model;
+        self.oldTime = model.message[@"time"];
+         cellFrame.model = model;
         
-        NSLog(@"%@",cellFrame.model.time);
         [self.newDataArray addObject:cellFrame];
     }
     
@@ -93,23 +91,22 @@ static NSString *const cellIdentifier=@"message";
  */
 -(void)insertNewDataToCurrentData
 {
-    NSEnumerator *enumertor=[self.newDataArray reverseObjectEnumerator];
-    for (messageCellFrame* cellFrame in enumertor) {
+    NSEnumerator *enumertor = [self.newDataArray reverseObjectEnumerator];
+    for (MessageCellFrame* cellFrame in enumertor) {
         [self.dataArray insertObject:cellFrame atIndex:0];
     }
 }
 #pragma mark - 键盘的监听
--(void)keyboardShow:(NSNotification *)note
+- (void)keyboardShow:(NSNotification *)note
 {
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat deltaY=keyBoardRect.size.height;
+    CGRect keyBoardRect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat deltaY = keyBoardRect.size.height;
     
     [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue] animations:^{
-        
-        self.view.transform=CGAffineTransformMakeTranslation(0, -deltaY);
+        self.view.transform = CGAffineTransformMakeTranslation(0, -deltaY);
     }];
 }
--(void)keyboardHide:(NSNotification *)note
+- (void)keyboardHide:(NSNotification *)note
 {
     [UIView animateWithDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue] animations:^{
         self.view.transform = CGAffineTransformIdentity;
@@ -117,54 +114,54 @@ static NSString *const cellIdentifier=@"message";
 }
 
 #pragma mark - 懒加载
--(UITableView *)tableView
+- (UITableView *)tableView
 {
-    if (_tableView==nil) {
-        _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-40-64) style:UITableViewStylePlain];
-        _tableView.delegate=self;
-        _tableView.dataSource=self;
-        _tableView.backgroundColor=[UIColor colorWithRed:236.0 green:235.0 blue:243.0 alpha:1.0];
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-40-64) style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = [UIColor colorWithRed:236.0 green:235.0 blue:243.0 alpha:1.0];
         [_tableView registerClass:[MessageCell class] forCellReuseIdentifier:cellIdentifier];
-        _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-        _tableView.allowsSelection=NO;
-        _tableView.backgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chat_bg_default"]];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.allowsSelection = NO;
+        _tableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chat_bg_default"]];
         
-        _tableView.header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(downRefresh)];
+        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(downRefresh)];
         //下拉
-//        _tableView.footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(upRefresh)];
-        
+//        _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(upRefresh)];
+ 
         
     }
     return _tableView;
 }
 -(KeyboardView *)keyBordView
 {
-    if (_keyBordView==nil) {
-        _keyBordView=[[KeyboardView alloc]initWithFrame:CGRectMake(0, ScreenHeight-KeyBoardHeight, ScreenWidth, KeyBoardHeight)];
-        _keyBordView.delegate=self;
+    if (_keyBordView == nil) {
+        _keyBordView = [[KeyboardView alloc]initWithFrame:CGRectMake(0, ScreenHeight-KeyBoardHeight, ScreenWidth, KeyBoardHeight)];
+        _keyBordView.delegate = self;
        
     }
     return _keyBordView;
 }
--(NSMutableArray *)dataArray
+- (NSMutableArray *)dataArray
 {
-    if (_dataArray==nil) {
-        _dataArray=[[NSMutableArray alloc]init];
+    if (_dataArray == nil) {
+        _dataArray = [[NSMutableArray alloc]init];
         
     }
     return _dataArray;
 }
--(NSMutableArray *)newDataArray
+- (NSMutableArray *)newDataArray
 {
-    if (_newDataArray==nil) {
-        _newDataArray=[[NSMutableArray alloc]init];
+    if (_newDataArray == nil) {
+        _newDataArray = [[NSMutableArray alloc]init];
     }
     return _newDataArray;
 }
--(NSString *)oldTime
+- (NSString *)oldTime
 {
-    if (_oldTime==nil) {
-        _oldTime=@"0";
+    if (_oldTime == nil) {
+        _oldTime = @"0";
     }
     return _oldTime;
     
@@ -186,28 +183,26 @@ static NSString *const cellIdentifier=@"message";
     
     
 }
--(void)upRefresh
+- (void)upRefresh
 {
     
 }
 
 
 #pragma mark - tableVIew代理
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataArray.count;
 }
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MessageCell* cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    if (cell==nil) {
-        cell=[[MessageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    MessageCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[MessageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    cell.delegate=self;
-    cell.cellFrame=self.dataArray[indexPath.row];
-//    self.oldTime=cell.cellFrame.model.message[@"time"];
-//    NSLog(@"asdadasdas%@",self.oldTime);
+    cell.delegate = self;
+    cell.cellFrame = self.dataArray[indexPath.row];
     return cell;
 }
 -(BOOL)compareTimeOld:(NSString *)oldTime newTime:(NSString *)newTime
@@ -224,134 +219,104 @@ static NSString *const cellIdentifier=@"message";
 
 #pragma mark - cell的代理
 //cell的代理，即点击内容播放声音
--(void)MessageCell:(MessageCell *)messageCell tapContent:(NSString *)content
+- (void)MessageCell:(MessageCell *)messageCell tapContent:(NSString *)content
 {
     NSLog(@"%s",__func__);
 }
 
--(void)hideKeyboard
+- (void)hideKeyboard
 {
     [self.view endEditing:YES];
 }
 
 #pragma mark - scroolView代理
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.view endEditing:YES];
 }
 #pragma mark - 开始、结束记录声音协议
--(void)beginRecord
+- (void)beginRecord
 {
     NSLog(@"%s",__func__);
 }
 
--(void)stopRecord
+- (void)stopRecord
 {
     NSLog(@"结束录音....");
     NSLog(@"%s",__func__);
 }
 
 #pragma mark - keyboardView代理
+
 //sendButton的代理
--(void)sendMessage
+- (void)sendMessage
 {
-    self.content=[self.keyBordView.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    self.content = [self.keyBordView.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (![self.content isEqualToString:@""]) {
         [self sendMessage:self.keyBordView.textView];
     }
     else
     {
-        //如果输入的是空格可以进一步处理
-        
         self.keyBordView.textView.text=@"";
         NSLog(@"您输入的是空格");
     }
     [self KeyboardVIew:self.keyBordView textViewHeightChange:self.keyBordView.textView];
 
 }
--(void)KeyboardVIew:(KeyboardView *)keyboardView textFileBegin:(UITextField *)textField
+- (void)KeyboardVIew:(KeyboardView *)keyboardView textFileBegin:(UITextField *)textField
 {
     [self tableViewScrollCurrentIndexPath:self.dataArray.count animated:YES];
 }
--(void)tableViewScrollCurrentIndexPath:(NSInteger)dataArrayIndex animated:(BOOL)animated
+- (void)tableViewScrollCurrentIndexPath:(NSInteger)dataArrayIndex animated:(BOOL)animated
 {
-//    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.dataArray.count-1 inSection:0];
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:dataArrayIndex-1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:dataArrayIndex-1 inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:animated];
 }
 
 -(void)sendMessage:(UITextView *)textView
 {
-    messageCellFrame *cellFrame=[[messageCellFrame alloc]init];
-    MessageModel *model=[[MessageModel alloc]init];
+    MessageCellFrame *cellFrame = [[MessageCellFrame alloc] init];
     
-    
+
     //生成自己的model
-    
-    model.messageId=@"2321";
-    model.from=@"11450";
-    model.groupId=@"226";
-    model.to=@"0";
-    model.time=@"4444444444444";
-    NSDate* date=[[NSDate alloc]initWithTimeIntervalSinceNow:0];
-    NSTimeInterval time=[date timeIntervalSince1970];
-    NSDate* newdate=[[NSDate alloc]initWithTimeIntervalSinceNow:60*5];
-    NSTimeInterval newtime=[newdate timeIntervalSince1970];
-    model.message=[NSDictionary dictionaryWithObjectsAndKeys:@"text",@"type",self.content,@"content",[NSString stringWithFormat:@"%f",time],@"time", nil];
+    NSDate* date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
+    NSTimeInterval time = [date timeIntervalSince1970];
+    NSDate* newdate = [[NSDate alloc]initWithTimeIntervalSinceNow:60*5];
+    NSTimeInterval newtime = [newdate timeIntervalSince1970];
+    NSDictionary *message = [NSDictionary dictionaryWithObjectsAndKeys:@"text",@"type",self.content,@"content",[NSString stringWithFormat:@"%f",time],@"time", nil];
+    NSString *avatar = @"http://img5.imgtn.bdimg.com/it/u=3494656842,1664655621&fm=21&gp=0.jpg";
+    NSDictionary *dict = @{@"messageId":@"2321",@"from":@"11450",@"groupId":@"226",@"to":@"0",@"message":message,@"creationTime":@"2015-12-10 14:44:04",@"name":@"老王",@"avatar":avatar};
     NSLog(@"current time %lf",time);
-    NSLog(@"5分钟之后时间%lf",newtime);
-    model.creationTime=@"2015-12-10 14:44:04";
-    model.name=@"老张";
-    model.avatar=@"http://img5.imgtn.bdimg.com/it/u=3494656842,1664655621&fm=21&gp=0.jpg";
+    NSLog(@"5分钟之后时间 %lf",newtime);
+    MessageModel *model = [MessageModel modelWithDict:dict];
+    cellFrame.isErrorImageShow = YES;
+    cellFrame.isIndeicatorShow = YES;
     
-    
-    
-//    cellFrame.isErrorImageShow=YES;
-    
-    cellFrame.isIndeicatorShow=YES;
-    cellFrame.errorImageRect=CGRectZero;
-    cellFrame.model=model;
+    cellFrame.model = model;
     
     [self.dataArray addObject:cellFrame];
     [self.tableView reloadData];
     
+    textView.text = @"";
+    
     //滚动到当前行
     [self tableViewScrollCurrentIndexPath:self.dataArray.count animated:YES];
-    
-    textView.text=@"";
-    //输入view恢复
-    
-    
-    //开始上传
-    
-    //上传失败
-    
-    //显示菊花
-    //
-    
-    //
 
 }
 
-
-
-
-
--(BOOL)KeyboardVIew:(KeyboardView *)keyboardView sendMessage:(UITextView *)textView currentMessage:(NSString *)text
+- (BOOL)KeyboardVIew:(KeyboardView *)keyboardView sendMessage:(UITextView *)textView currentMessage:(NSString *)text
 {
-
     if ([text isEqualToString:@"\n"]) {
-        self.content=[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        self.content = [textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if (![self.content isEqualToString:@""]) {
             [self sendMessage:textView];
         }
         else
         {
             //如果输入的是空格可以进一步处理
-            textView.text=@"";
+            textView.text = @"";
             NSLog(@"您输入的是空格");
         }
-        
         //恢复原始状态
         [self KeyboardVIew:keyboardView textViewDidChang:textView];
         return NO;
@@ -362,7 +327,7 @@ static NSString *const cellIdentifier=@"message";
 -(void)KeyboardVIew:(KeyboardView *)keyboardView textViewBegin:(UITextView *)textView
 {
     [textView becomeFirstResponder];
-    
+
     if(!self.previousTextViewContentHeight)
     {
         CGFloat maxHeight = [self.keyBordView maxHeight];
@@ -380,7 +345,7 @@ static NSString *const cellIdentifier=@"message";
 -(void)KeyboardVIew:(KeyboardView *)keyboardView textViewHeightChange:(UITextView *)textView
 {
     [self tableViewScrollCurrentIndexPath:self.dataArray.count animated:YES];
-    textView.text=@"";
+    textView.text = @"";
     if(!self.previousTextViewContentHeight)
     {
         CGFloat maxHeight = [self.keyBordView maxHeight];
@@ -389,7 +354,7 @@ static NSString *const cellIdentifier=@"message";
         self.previousTextViewContentHeight = textViewContentHeight;
     }
     [self KeyboardVIew:keyboardView textViewDidChang:textView];
-//    [self ChangeHeight:<#(CGFloat)#> isShrinking:YES];
+
 }
 
 -(void)KeyboardVIew:(KeyboardView *)keyboardView textViewDidChang:(UITextView *)textView
@@ -400,7 +365,6 @@ static NSString *const cellIdentifier=@"message";
     CGFloat textViewContentHeight = size.height;
     BOOL isShrinking = textViewContentHeight < self.previousTextViewContentHeight;
     CGFloat changeInHeight = textViewContentHeight - self.previousTextViewContentHeight;
-    
     if(!isShrinking && self.previousTextViewContentHeight == maxHeight) {
         changeInHeight = 0;
     }
@@ -426,13 +390,11 @@ static NSString *const cellIdentifier=@"message";
                          [self tableViewScrollCurrentIndexPath:self.dataArray.count animated:YES];
                          
                          if(isShrinking) {
-                             // if shrinking the view, animate text view frame BEFORE input view frame
                              [self.keyBordView adjustTextViewHeightBy:changeInHeight];
                          }
                          CGRect inputViewFrame = self.keyBordView.frame;
                          self.keyBordView.frame = CGRectMake(0.0f,inputViewFrame.origin.y - changeInHeight,inputViewFrame.size.width,inputViewFrame.size.height + changeInHeight);
-                         
-                         self.keyBordView.backImageView.frame=self.keyBordView.bounds;
+                         self.keyBordView.backImageView.frame = self.keyBordView.bounds;
                          
                          if(!isShrinking) {
                              [self.keyBordView adjustTextViewHeightBy:changeInHeight];
@@ -443,10 +405,6 @@ static NSString *const cellIdentifier=@"message";
     
 
 }
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {

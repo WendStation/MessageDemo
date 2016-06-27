@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface Function : NSObject
-+(NSString*)dateStringWithTimeString:(NSString*)time;
+
 +(NSString*)compareTimeWithOldTime:(NSString*)oldTime NewTime:(NSString*)newTime;
 @end

@@ -11,13 +11,13 @@
 @implementation MessageModel
 
 
-+(instancetype)modelWithDict:(NSDictionary *)dict
++ (instancetype)modelWithDict:(NSDictionary *)dict
 {
-    MessageModel *model=[[self alloc]init];
+    MessageModel *model = [[self alloc]init];
     [model setValuesForKeysWithDictionary:dict];
     return model;
 }
--(void)setValue:(id)value forUndefinedKey:(NSString *)key
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
     
 }

@@ -13,17 +13,17 @@
 
 @protocol MessageContentViewDelegate <NSObject>
 
--(void)messageContentViewLongPress:(MessageContentView*)messageContentView content:(NSString*)content;
--(void)messageContentViewTapPress:(MessageContentView*)messageContentView content:(NSString *)content;
+- (void)messageContentViewLongPress:(MessageContentView*)messageContentView content:(NSString*)content;
+- (void)messageContentViewTapPress:(MessageContentView*)messageContentView content:(NSString *)content;
 
 @end
 
 
 @interface MessageContentView : UIView
-@property(nonatomic,strong)UIImageView* backImageView;
-@property(nonatomic,strong)PPLabel* contentLabel;
+@property (nonatomic,strong) UIImageView *backImageView;
+@property (nonatomic,strong) PPLabel *contentLabel;
 
-@property(nonatomic,strong)MessageModel* model;
-@property(nonatomic,assign)id<MessageContentViewDelegate>delegate;
+@property (nonatomic,strong) MessageModel *model;
+@property (nonatomic,assign) id<MessageContentViewDelegate>delegate;
 
 @end
